@@ -4,30 +4,70 @@ sidebar_position: 2
 
 # qpansopy
 
-**qpansopy** is a QGIS plugin that integrates PANS-OPS instrument flight procedure design calculations directly inside the QGIS desktop GIS environment.
+**qpansopy** is an open-source PANS-OPS software implementation based on QGIS. It automates the construction of obstacle clearance areas and protection surfaces for instrument flight procedures directly inside the QGIS GIS environment.
 
 **[GitHub →](https://github.com/FLYGHT7/qpansopy)**
 
 ## Overview
 
-|              |             |
-| ------------ | ----------- |
-| **Language** | Python      |
-| **Platform** | QGIS Plugin |
-| **License**  | GPL-2.0     |
-| **Stars**    | ⭐ 4        |
-| **Forks**    | 🍴 3        |
+|                  |                                                      |
+| ---------------- | ---------------------------------------------------- |
+| **Language**     | Python 96% / QML 4%                                  |
+| **Platform**     | QGIS Plugin                                          |
+| **License**      | GPL-2.0                                              |
+| **Stars**        | ⭐ 4                                                 |
+| **Forks**        | 🍴 3                                                 |
+| **Contributors** | andures, antoniolocandro, flyght7-admin, ShaunGouvea |
 
-## What It Does
+:::caution Development notice
+This code is in development and provided as-is — it may contain errors and you are solely responsible for using it. Any feedback is welcome.
+:::
 
-qpansopy leverages QGIS's geospatial engine to draw and calculate procedure design surfaces according to ICAO Doc 8168 PANS-OPS directly on georeferenced maps. This allows designers to visualize obstacle clearance areas, turning areas, and other critical geometry alongside real terrain and airspace data.
+## Technical Notes
 
-## Key Capabilities
+- All calculations are done in a **projected coordinate system** — no geodesic calculations intended at this stage.
+- All computations are done in **meters and knots** (KTS); unit conversions are applied where needed.
+- PANS-OPS has "equivalences" that are not truly equivalent (e.g. 50 ft ≠ 15 m exactly), so small differences in results are expected.
+- Uses **reference layers** (rather than rubberbands) for point/click map input; this may change in the future.
 
-- **PANS-OPS surface generation** — draw OCA/H surfaces and protection areas on the map
-- **Georeferenced output** — all geometry is in real-world coordinates (WGS-84)
-- **Integration with QGIS layers** — overlay results on aeronautical charts, terrain DEMs, and obstacle databases
-- **Python scripting** — automation and batch processing via QGIS Python console
+## Currently Implemented
+
+### Utilities
+
+- VSS Tool
+- Wind Spiral Tool
+- Object Selection (extract points intersecting area)
+- Point Filter
+- Flash Feature Merge
+
+### Conventional Approach
+
+- VOR template
+- NDB template
+- Conventional Initial Template
+
+### Precision Approach
+
+- ILS Basic Surfaces
+- ILS OAS CAT I
+
+### PBN Approach
+
+- PBN LNAV (straight to runway)
+- PBN Intermediate (aligned)
+- PBN Initial (without automatic connection to intermediate)
+- PBN Missed Approach (simple straight ahead)
+
+## Next Steps
+
+- PBN 15 NM and 30 NM targets
+
+## Roadmap
+
+1. Initial focus on correct area creation
+2. Ability to export tables to Word for creating reports
+3. Add evaluation of straight segments
+4. Add logic for evaluation of curves/offsets
 
 ## Prerequisites
 
@@ -36,16 +76,24 @@ qpansopy leverages QGIS's geospatial engine to draw and calculate procedure desi
 
 ## Installation
 
-1. Download or clone the repository from [GitHub](https://github.com/FLYGHT7/qpansopy)
-2. Copy the plugin folder into your QGIS plugins directory:  
-   `~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/`
-3. Enable it in **QGIS → Plugins → Manage and Install Plugins**
+1. Clone or download the repository from [GitHub](https://github.com/FLYGHT7/qpansopy)
+2. Copy the `Q_Pansopy` folder into your QGIS plugins directory:
 
-:::note Full Documentation Coming Soon
-Detailed usage guides, configuration options, and workflow examples will be published here. Contributions welcome — see the [GitHub repository](https://github.com/FLYGHT7/qpansopy).
-:::
+   **Windows:**
+
+   ```
+   C:\Users\<user>\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\
+   ```
+
+   **Linux / macOS:**
+
+   ```
+   ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/
+   ```
+
+3. In QGIS, go to **Plugins → Manage and Install Plugins**, find **qpansopy** and enable it.
 
 ## References
 
-- ICAO Doc 8168 — PANS-OPS Volume II
+- ICAO Doc 8168 — PANS-OPS Vol II: Construction of Visual and Instrument Flight Procedures
 - QGIS Documentation: https://qgis.org/en/docs/

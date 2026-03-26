@@ -4,45 +4,35 @@ sidebar_position: 6
 
 # tofpa
 
-**tofpa** (Take-Off Flight Path Analyser) is a desktop application for computing and visualizing the take-off flight path according to ICAO PANS-OPS Doc 8168.
+**tofpa** is a QGIS plugin for Take-Off Flight Path Analysis (TOFPA) according to ICAO PANS-OPS. It creates the default straight take-off flight path area and performs obstacle analysis using Digital Terrain Model (DTM) data.
 
 **[GitHub →](https://github.com/FLYGHT7/tofpa)**
 
 ## Overview
 
-|              |                                 |
-| ------------ | ------------------------------- |
-| **Language** | QML / Qt Quick                  |
-| **Platform** | Desktop (Windows, Linux, macOS) |
-| **License**  | GPL-2.0                         |
-| **Stars**    | ⭐ 2                            |
-| **Forks**    | 🍴 2                            |
+|                  |                                         |
+| ---------------- | --------------------------------------- |
+| **Language**     | QML 55% / Python 45%                    |
+| **Platform**     | QGIS Plugin                             |
+| **License**      | GPL-2.0                                 |
+| **Topics**       | aviation, ols, pansops                  |
+| **Stars**        | ⭐ 2                                    |
+| **Forks**        | 🍴 2                                    |
+| **Contributors** | flyght7-admin, andures, antoniolocandro |
+
+:::caution Development notice
+This code is in development and provided as-is — it may contain errors and you are solely responsible for using it. Any feedback is welcome. Calculations are done in a projected coordinate system — no geodesic calculations intended.
+:::
 
 ## What It Does
 
-tofpa models the take-off flight path (TOFP) as defined in ICAO Doc 8168 PANS-OPS. Given runway and aircraft parameters, it computes critical climb segments and evaluates obstacle clearance margins along the departure path. The Qt/QML interface provides an interactive graphical representation of the flight profile and associated obstacle clearance surface.
+tofpa creates the default **straight take-off flight path area** considering a **1.2% slope**. Obstacle analysis is performed via a QGIS processing model that handles DTM (Digital Terrain Model) raster data.
 
-## Key Capabilities
+### Key Concepts
 
-- **TOFP segment calculation** — Segments 1, 2, 3 (and beyond) per PANS-OPS methodology
-- **Obstacle clearance evaluation** — compare terrain/obstacle heights against the required clearance plane
-- **Graphical profile view** — 2D side-profile display of the departure path and obstacles
-- **Export** — save results for reporting or further analysis
-- **Cross-platform** — native Qt application runs on Windows, Linux, and macOS
+#### Procedure Design Gradient (PDG)
 
-## Key Concepts
-
-### Take-Off Flight Path Segments
-
-| Segment               | Description                                |
-| --------------------- | ------------------------------------------ |
-| **Initial Climb**     | From lift-off to first flight level change |
-| **Departure Segment** | Specific track from DER to PDG achievement |
-| **En-route Segment**  | From PDG altitude onward                   |
-
-### Procedure Design Gradient (PDG)
-
-The minimum climb gradient required to clear all obstacles with the required vertical clearance (MOC). Default PDG is **3.3%** unless a higher gradient is required.
+The minimum climb gradient required to clear all obstacles with the required vertical clearance (MOC). Default PDG is **3.3%** (source: ICAO Doc 8168) unless terrain requires a higher gradient.
 
 $$
 PDG = \frac{h_{obs} + MOC}{d_{obs}} \times 100\%
@@ -52,28 +42,45 @@ Where:
 
 - $h_{obs}$ = obstacle height above DER elevation
 - $d_{obs}$ = horizontal distance from DER
-- $MOC$ = minimum obstacle clearance (typically 50 ft / 15 m in the initial departure area)
+- $MOC$ = minimum obstacle clearance (typically 50 ft / 15 m)
+
+#### Take-Off Flight Path Segments
+
+| Segment           | Description                          |
+| ----------------- | ------------------------------------ |
+| Departure segment | Track from DER until PDG is achieved |
+| En-route segment  | From PDG achievement altitude onward |
+
+## Roadmap
+
+1. Implement survey obstacle analysis
+2. Convert QGIS processing model to UI pyqgis icon _click-to-run_
+
+## Prerequisites
+
+- **QGIS 3.x** (LTR recommended)
+- Python 3 (bundled with QGIS)
+- A projected CRS loaded in the QGIS project
 
 ## Installation
 
-### From Source
+1. Clone or download the repository from [GitHub](https://github.com/FLYGHT7/tofpa)
+2. Copy the plugin folder to your QGIS plugins directory:
 
-```bash
-git clone https://github.com/FLYGHT7/tofpa.git
-cd tofpa
-```
+   **Windows:**
 
-Requires **Qt 5.x or 6.x** with Qt Quick (QML). Open `tofpa.pro` in Qt Creator and build.
+   ```
+   C:\Users\<user>\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\
+   ```
 
-### Pre-built Binaries
+   **Linux / macOS:**
 
-Check [GitHub Releases](https://github.com/FLYGHT7/tofpa/releases) for pre-built packages.
+   ```
+   ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/
+   ```
 
-:::note Full Documentation Coming Soon
-Input parameter guides, worked examples, and comparison with manual calculations will be published here. See the [GitHub repository](https://github.com/FLYGHT7/tofpa) for the latest source.
-:::
+3. Enable **tofpa** via **QGIS → Plugins → Manage and Install Plugins**
 
 ## References
 
-- ICAO Doc 8168 PANS-OPS Volume II — Construction of Visual and Instrument Flight Procedures
-- Section 3 — Departure Procedures
+- ICAO Doc 8168 PANS-OPS Volume II — Construction of Visual and Instrument Flight Procedures, Section 3: Departure Procedures

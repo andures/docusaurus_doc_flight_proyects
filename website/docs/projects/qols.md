@@ -4,33 +4,31 @@ sidebar_position: 4
 
 # qOLS
 
-**qOLS** is a QGIS plugin for computing and visualizing Obstacle Limitation Surfaces (OLS) as defined in ICAO Annex 14 for airport planning and obstacle assessment.
+**qOLS** is a QGIS plugin for creating Obstacle Limitation Surfaces (OLS) in accordance with ICAO Annex 14 Volume I (Aerodromes) and Volume II (Heliports).
 
 **[GitHub →](https://github.com/FLYGHT7/qOLS)**
 
 ## Overview
 
-|              |             |
-| ------------ | ----------- |
-| **Language** | Python      |
-| **Platform** | QGIS Plugin |
-| **License**  | GPL-2.0     |
-| **Stars**    | ⭐ 8        |
-| **Forks**    | 🍴 3        |
+|                  |                                         |
+| ---------------- | --------------------------------------- |
+| **Language**     | Python 100%                             |
+| **Platform**     | QGIS Plugin                             |
+| **License**      | GPL-2.0                                 |
+| **Stars**        | ⭐ 8                                    |
+| **Forks**        | 🍴 3                                    |
+| **Contributors** | andures, flyght7-admin, antoniolocandro |
 
-## What It Does
+:::caution Development notice
+This code is in development and provided as-is — it may contain errors and you are solely responsible for using it. Any feedback is welcome.
+:::
 
-qOLS generates the geometric surfaces that define allowable obstacle heights around an aerodrome — the Conical Surface, Inner Horizontal Surface, Approach Surfaces, Transitional Surfaces, and others specified in ICAO Annex 14. By computing these surfaces as 3D geometry inside QGIS, designers and planners can immediately assess whether existing or proposed structures penetrate protected airspace.
+## Key Constraints
 
-## Key Capabilities
+- **Single runway systems only** at the moment. For multiple runways, each must be analyzed separately.
+- **Projected Coordinate Systems** are used — no geodetic calculations (simplifies the geometry).
 
-- **ICAO Annex 14 surfaces** — full set of OLS surfaces for instrument and non-instrument runways
-- **3D geometry** — surfaces computed as 3D vector layers with correct elevations
-- **Obstacle assessment** — intersect obstacle points or buildings against surfaces to find penetrations
-- **Runway code letter/number support** — automatically adjusts surface dimensions per runway category
-- **Export** — shapefile, GeoPackage, or KML for sharing with aviation authorities
-
-## Surfaces Computed
+## Surfaces Generated
 
 | Surface               | Description                                          |
 | --------------------- | ---------------------------------------------------- |
@@ -39,7 +37,17 @@ qOLS generates the geometric surfaces that define allowable obstacle heights aro
 | Approach Surface      | Slopes upward from the runway threshold              |
 | Transitional Surface  | Connects approach and inner horizontal surfaces      |
 | Takeoff/Climb Surface | Protects the departure flight path                   |
-| Outer Horizontal      | (Optional) Extended horizontal protection zone       |
+| Outer Horizontal      | Extended horizontal protection zone                  |
+
+## Roadmap
+
+1. ✅ Initial areas hard-coded — current OLS
+2. Areas designed based on runway classification, values read from file per ICAO standard
+3. Configuration of areas for local conditions
+4. Obstacle evaluation
+5. Automatic report creation
+6. Future OLS concept introduced
+7. FAA surfaces _(maybe)_
 
 ## Prerequisites
 
@@ -48,16 +56,15 @@ qOLS generates the geometric surfaces that define allowable obstacle heights aro
 
 ## Installation
 
-1. Clone or download from [GitHub](https://github.com/FLYGHT7/qOLS)
-2. Place plugin folder in:  
-   `~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/`
-3. Enable via **QGIS → Plugins → Manage and Install Plugins**
+The plugin is not yet in the official QGIS plugin repository. Install via the **Releases** page on GitHub:
 
-:::note Full Documentation Coming Soon
-Step-by-step surface generation guides, input parameter reference, and obstacle assessment workflows will be published here. See the [GitHub repository](https://github.com/FLYGHT7/qOLS).
-:::
+1. Go to [github.com/FLYGHT7/qOLS/releases](https://github.com/FLYGHT7/qOLS/releases) and download the latest `.zip`
+2. In QGIS, open **Plugins → Manage and Install Plugins**
+3. Go to the **Install from ZIP** tab, select the downloaded file, and click **Install Plugin**
+4. Make sure the **Plugins toolbar is enabled** in QGIS (View → Toolbars → Plugins Toolbar)
 
 ## References
 
 - ICAO Annex 14 — Aerodromes Volume I: Aerodrome Design and Operations
+- ICAO Annex 14 — Volume II: Heliports
 - QGIS Documentation: https://qgis.org/en/docs/

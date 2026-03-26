@@ -4,31 +4,43 @@ sidebar_position: 3
 
 # qAeroChart
 
-**qAeroChart** is a QGIS plugin for aeronautical chart production, enabling users to generate standardized aeronautical charts with proper symbology and layout directly within QGIS.
+**qAeroChart** is an open-source aeronautical charting solution built on QGIS, aimed at complying with ICAO SARPs (Standards and Recommended Practices) — reimagining aeronautical charting with open-source power and QGIS precision.
+
+> ✈️ Built on QGIS. Designed to outfly legacy.
 
 **[GitHub →](https://github.com/FLYGHT7/qAeroChart)**
 
 ## Overview
 
-|              |             |
-| ------------ | ----------- |
-| **Language** | Python      |
-| **Platform** | QGIS Plugin |
-| **License**  | GPL-2.0     |
-| **Stars**    | ⭐ 4        |
-| **Forks**    | 🍴 2        |
+|                  |                                         |
+| ---------------- | --------------------------------------- |
+| **Language**     | Python 100%                             |
+| **Platform**     | QGIS Plugin                             |
+| **License**      | GPL-2.0                                 |
+| **Stars**        | ⭐ 4                                    |
+| **Forks**        | 🍴 2                                    |
+| **Contributors** | andures, antoniolocandro, flyght7-admin |
 
-## What It Does
+## Vision
 
-qAeroChart provides tools to automate and standardize the production of instrument approach charts, SID/STAR charts, and airport diagrams using QGIS's powerful cartographic engine. It applies ICAO Annex 4-compliant symbology to map layers and assists in layout generation for print-ready or PDF output.
+qAeroChart will revolutionize aeronautical charting by providing a modern, open-source solution built on QGIS. Designed to replace outdated, rigid legacy systems, it empowers aviation professionals with flexible, compliant, and dynamic mapping tools — with no licensing fees and no annual subscriptions.
+
+## Planned Components
+
+| Component      | Description                        |
+| -------------- | ---------------------------------- |
+| **qAeroCore**  | Shared libraries and core logic    |
+| **qAeroTools** | Utility tools for chart production |
+| **qAeroWeb**   | Web-based chart viewer             |
+| **qAeroCloud** | Cloud sync services                |
 
 ## Key Capabilities
 
-- **ICAO Annex 4 symbology** — standard aeronautical chart symbols and colors
-- **Chart layout automation** — pre-configured print layouts with chart boxes, notes, and tables
-- **Layer styling** — pre-built styles for airways, fixes, navaids, obstacles, and terrain
-- **Export** — generate PDF or image output ready for publication
-- **Integration with QGIS Atlas** — batch production of multiple charts
+- **ICAO Annex 4 compliance** — chart symbology and layout following ICAO SARPs
+- **QGIS-powered cartography** — leverage QGIS's full cartographic engine for chart production
+- **Profile charts** — vertical profile generation with configurable style parameters
+- **JSON-based configuration** — profile chart styles defined via JSONHandler and Validators modules
+- **Distance/altitude tables** — automated generation of distance-altitude reference tables
 
 ## Prerequisites
 
@@ -38,15 +50,32 @@ qAeroChart provides tools to automate and standardize the production of instrume
 ## Installation
 
 1. Clone or download from [GitHub](https://github.com/FLYGHT7/qAeroChart)
-2. Place plugin folder in:  
-   `~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/`
+2. Copy the `qAeroChart` plugin folder to your QGIS plugins directory:
+
+   **Windows:**
+
+   ```
+   C:\Users\<user>\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\
+   ```
+
+   **Linux / macOS:**
+
+   ```
+   ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/
+   ```
+
 3. Enable via **QGIS → Plugins → Manage and Install Plugins**
 
-:::note Full Documentation Coming Soon
-Detailed chart production workflows, symbology reference, and export guides will be published here. See the [GitHub repository](https://github.com/FLYGHT7/qAeroChart) for the latest source and issues.
-:::
+## Contributing
+
+PR documentation files under `docs/` are required when the PR fixes a user-assigned issue or the maintainer requests it. Use the naming convention:
+
+- English: `docs/PR-issue-<number>-en.md`
+- Spanish: `docs/PR-issue-<number>-es.md`
+
+Templates are available at `docs/PR-template-en.md` and `docs/PR-template-es.md`.
 
 ## References
 
 - ICAO Annex 4 — Aeronautical Charts
-- QGIS Print Layout documentation: https://qgis.org/en/docs/
+- QGIS Documentation: https://qgis.org/en/docs/
