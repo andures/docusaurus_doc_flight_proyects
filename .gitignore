@@ -1,0 +1,5 @@
+# Claude Code & agent skills
+.agents/
+.claude/
+CLAUDE.md
+skills-lock.json
